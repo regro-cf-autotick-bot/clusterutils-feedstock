@@ -11,21 +11,23 @@ source:
 
 build:
   noarch: python
-  number: 1
+  number: 2
   script: "{{ PYTHON }} -m pip install . -vv --no-deps"
   entry_points:
   - build_mpirun_configfile = clusterutils.build_mpirun_configfile:main
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - lxml
     - mpich
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - clusterutils
   commands:
